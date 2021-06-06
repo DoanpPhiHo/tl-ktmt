@@ -1,19 +1,19 @@
 import './App.css';
 import { useState } from 'react';
-import { chia, cong, nhan, sobu2, tru } from './func/funAll';
+import { chia, cong, heSo, nhan, sobu2, tru } from './func/funAll';
 
 function App() {
   const [a, setA] = useState('');
   const [b, setB] = useState('');
-  const [c, setC] = useState(false)
+  const [c, setC] = useState(heSo.he10)
   const [d, setD] = useState()
   if (d) console.log(d)
   return (
     <div className="App">
       <input value={a} onChange={(e) => setA(c => c = e.target.value)} />
       <input value={b} onChange={(e) => setB(c => c = e.target.value)} />
-      <button onClick={() => setC(c => c = !c)}>{c ? 'Cơ Số 2' : 'Cơ sô 10'}</button>
-      <button onClick={() => setD(g => g = cong(a, b, c))} >Cong</button>
+      <button onClick={() => setC(c => c = c === heSo.he10 ? heSo.he2 : heSo.he10)}>{c}</button>
+      <button onClick={() => setD(g => g = cong({ a: a, b: b, c: c }))} >Cong</button>
       <button onClick={() => setD(g => g = tru(a, b, c))} >Tru</button>
       <button onClick={() => setD(g => g = nhan(a, b, c))} >Nhan</button>
       <button onClick={() => setD(g => g = chia(a, b, c))} >Chia</button>

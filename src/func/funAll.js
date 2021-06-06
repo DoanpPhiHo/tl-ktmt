@@ -1,37 +1,3 @@
-const cong = (a, b, c) => {
-    if (!c) {
-        a = Number(a).toString(2)
-        b = Number(b).toString(2)
-    }
-    if (a.length < b.length) {
-        const cList = a
-        a = b
-        b = cList
-    }
-    if (a.length === b.length) {
-        a = '0' + a
-    }
-    let aList = String(a).split('')
-    let bList = String(b).split('')
-    let ischeck = 0
-    let d = ''
-    let g = []
-    for (let i = aList.length - 1; i >= 0; i--) {
-        const e = s(aList[i], bList[bList.length - (aList.length - i)] ?
-            bList[bList.length - (aList.length - i)] : 0, ischeck)
-        d = e.a + d
-        ischeck = e.b
-        g.push({ d, ischeck })
-    }
-    return { d, g, t: '+' }
-}
-const s = (a, b, c) => {
-    if (Number(a) + Number(b) + Number(c) === 3)
-        return { a: 1, b: 1 }
-    if (Number(a) + Number(b) + Number(c) === 2)
-        return { a: 0, b: 1 }
-    return { a: Number(a) + Number(b) + Number(c), b: 0 }
-}
 const sobu1 = (a) => a.split('').map((i) => i === '0' ? '1' : '0').join('')
 const sobu2 = (a) => cong('1', Number(a), toString(), true).d
 const tru = (a, b, c) => {
@@ -83,4 +49,46 @@ const chia = (a, b, c) => {
     return { d: k, g: list, t: ':', l: g }
 }
 
-export { cong, tru, sobu2, nhan, chia }
+const heSo = {
+    he10: 'Hệ số 10',
+    he2: 'Hệ số 2'
+}
+
+const phepCong = {
+    a: '00',
+    b: '01',
+    c: '10',
+    d: '11',
+}
+
+const s = ({ a = '0', b = '0', c = true }) => [a, b].join('') === phepCong.a ?
+    { e: c, f: false } : [a, b].join('') === phepCong.b
+        || [a, b].join('') === phepCong.c ? { e: !c, f: c } : { e: c, f: !c }
+
+const formatBin = ({ a = '0', b = '0' }) => {
+    const i = [2, 3, 4, 5, 6, 7].filter(c => c ** 2 >= a.length && c ** 2 >= b.length)[0]
+    return { a: '0'.repeat(i ** 2 - a.length) + a, b: '0'.repeat(i ** 2 - b.length) + b }
+}
+
+
+const cong = ({ a = '', b = '', c = heSo.he10 }) => {
+    let a10 = (c !== heSo.he10 ? parseInt(a, 2) : a)
+    let b10 = (c !== heSo.he10 ? parseInt(b, 2) : b)
+    let a2 = (c === heSo.he10 ? Number(a).toString(2) : a)
+    let b2 = (c === heSo.he10 ? Number(b).toString(2) : b)
+    let k = false
+    const { a: af, b: bf } = formatBin({ a: a2, b: b2 })
+    const d = af.split('').reverse().map((it, ix) => {
+        const l = s({
+            a: it,
+            b: bf.split('').reverse()[ix],
+            c: k
+        })
+        k = l.f
+        return l.e ? '1' : '0'
+    }).reverse().join('')
+    console.log((k ? '1' : '0') + d, parseInt((k ? '1' : '0') + d, 2));
+    return { a10, b10, a2, b2, k: k ? '1' : '0', d }
+}
+
+export { cong, tru, sobu2, nhan, chia, heSo }
