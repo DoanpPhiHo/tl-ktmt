@@ -21,29 +21,73 @@ const nhan = ({ a = "", b = "", c = heSo.he10 }) => {
   }
   return { a10, b10, a2, b2, d, g: cList, t: "*" };
 };
-const chia = ({ a = "", b = "", c = heSo.he10 }) => {
+// const chia = ({ a = "", b = "", c = heSo.he10 }) => {
+//   let a10 = c !== heSo.he10 ? parseInt(a, 2) : a;
+//   let b10 = c !== heSo.he10 ? parseInt(b, 2) : b;
+//   let a2 = c === heSo.he10 ? Number(a).toString(2) : a;
+//   let b2 = c === heSo.he10 ? Number(b).toString(2) : b;
+//   const aList = a2.split("");
+//   let g = "0";
+//   let i = 0;
+//   let k = "";
+//   let list = [];
+//   while (i < a2.length) {
+//     g = g + aList[i];
+//     i++;
+//     if (parseInt(g, 2) < parseInt(b, 2)) {
+//       k = k + "0";
+//     } else {
+//       const ls = tru(g, b, true);
+//       g = sobu2(ls.d);
+//       k = k + "1";
+//     }
+//     list.push({ g, i, k });
+//   }
+//   return { d: k, g: list, t: ":", l: g };
+// };
+
+const chia = ({ a = "", b = "", c = true }) => {
   let a10 = c !== heSo.he10 ? parseInt(a, 2) : a;
   let b10 = c !== heSo.he10 ? parseInt(b, 2) : b;
   let a2 = c === heSo.he10 ? Number(a).toString(2) : a;
   let b2 = c === heSo.he10 ? Number(b).toString(2) : b;
-  const aList = a2.split("");
-  let g = "0";
-  let i = 0;
-  let k = "";
-  let list = [];
-  while (i < a2.length) {
-    g = g + aList[i];
-    i++;
-    if (parseInt(g, 2) < parseInt(b, 2)) {
-      k = k + "0";
-    } else {
-      const ls = tru(g, b, true);
-      g = sobu2(ls.d);
-      k = k + "1";
+  const { a: af, b: bf } = formatBin({ a: a2, b: b2 });
+
+  let A = "0".repeat(bf.length).split("");
+  let BD = af.length;
+  let Q = af.split("");
+  let M = bf.split("");
+
+  let buocThucHien = [];
+
+  while (BD > 0) {
+    A = (A.join("").substring(1) + Q[0]).split("");
+    Q = (Q.join("").substring(1) + "0").split("");
+    let buoc = {
+      b: BD,
+      Al: A.join(""),
+      Ql: Q.join(""),
+      AM: "0",
+      QM: "0",
+      Q0: "0",
+      Ah: tru({
+        a: parseInt(A.join(""), 2),
+        b: parseInt(M.join(""), 2),
+        c: heSo.he10,
+      }).d,
+    };
+    if (parseInt(A.join(""), 2) >= parseInt(M.join(""), 2)) {
+      const { d } = tru({ a: A.join(""), b: M.join(""), c: heSo.he2 });
+      A = d.split("");
+      Q[Q.length - 1] = "1";
+      buoc.Q0 = "1";
     }
-    list.push({ g, i, k });
+    buoc.AM = A.join("");
+    buoc.QM = Q.join("");
+    buocThucHien.push(buoc);
+    BD--;
   }
-  return { d: k, g: list, t: ":", l: g };
+  return { a10, b10, a2, b2, A, Q, buocThucHien, t: ":" };
 };
 
 const heSo = {
@@ -81,7 +125,11 @@ const cong = ({ a = "", b = "", c = heSo.he10 }) => {
   let a2 = c === heSo.he10 ? Number(a).toString(2) : a;
   let b2 = c === heSo.he10 ? Number(b).toString(2) : b;
   let k = false;
-  const { a: af, b: bf } = formatBin({ a: a2, b: b2 });
+  let karray = [];
+  const { a: af, b: bf } =
+    a2.length === b2.length && a.length % 4 === 0
+      ? { a: a2, b: b2 }
+      : formatBin({ a: a2, b: b2 });
   const d = af
     .split("")
     .reverse()
@@ -92,12 +140,13 @@ const cong = ({ a = "", b = "", c = heSo.he10 }) => {
         c: k,
       });
       k = f;
+      karray.push(k ? "1" : "0");
       return e ? "1" : "0";
     })
     .reverse()
     .join("");
   console.log((k ? "1" : "0") + d, parseInt((k ? "1" : "0") + d, 2));
-  return { a10, b10, a2, b2, k: k ? "1" : "0", d };
+  return { a10, b10, a2: af, b2: bf, k: k ? "1" : "0", d, t: "+", karray };
 };
 
 const tru = ({ a = "", b = "", c = heSo.he10 }) => {
@@ -107,8 +156,8 @@ const tru = ({ a = "", b = "", c = heSo.he10 }) => {
   let b2 = c === heSo.he10 ? Number(b).toString(2) : b;
   const { a: af, b: bf } = formatBin({ a: a2, b: b2 });
   b = sobu2(sobu1(bf));
-  const { d, k } = cong({ a: af, b: b, c: heSo.he2 });
-  return { a10, b10, a2, b2, k, d, bbu1: b };
+  const { d, k, karray } = cong({ a: af, b: b, c: heSo.he2 });
+  return { a10, b10, a2, b2, k, d, bbu2: b, karray, t: "-" };
 };
 
 export { cong, tru, sobu2, nhan, chia, heSo };
