@@ -27,14 +27,14 @@ function App() {
         style={{ margin: 10 }}
         onClick={() => setD((g) => (g = cong({ a, b, c })))}
       >
-        Cong
+        Cộng
       </button>
       <button
         className="btn btn-primary"
         style={{ margin: 10 }}
         onClick={() => setD((g) => (g = tru({ a, b, c })))}
       >
-        Tru
+        Trừ
       </button>
       {/* <button
         className="btn btn-primary"
