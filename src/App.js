@@ -1,6 +1,6 @@
 import "./App.css";
 import { useState } from "react";
-import { chia, cong, heSo, nhan, tru } from "./func/funAll";
+import { cong, heSo, tru } from "./func/funAll";
 import TongQuat from "./components/TongQuat";
 
 function App() {
@@ -36,7 +36,7 @@ function App() {
       >
         Tru
       </button>
-      <button
+      {/* <button
         className="btn btn-primary"
         style={{ margin: 10 }}
         onClick={() => setD((g) => (g = nhan({ a, b, c })))}
@@ -49,7 +49,7 @@ function App() {
         onClick={() => setD((g) => (g = chia({ a, b, c })))}
       >
         Chia
-      </button>
+      </button> */}
       {b && d && <TongQuat m={b} value={d} />}
     </div>
   );
