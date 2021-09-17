@@ -166,6 +166,7 @@ const cong = ({ a = "", b = "", c = heSo.he10 }) => {
 
 const formatNum = ({ a = "" }) => {
   let b = Number(a.split('').filter(e => e !== '-').join('')).toString(2)
+  console.log(`bbbbbbbbbbbb${b}`);
   const i = [2, 3, 4, 5, 6, 7].filter(
     (c) => c ** 2 >= b.length
   )[0]
@@ -182,7 +183,7 @@ const tru = ({ a = "", b = "", c = heSo.he10 }) => {
     Number(a).toString(2)) : a
   let b2 = c === heSo.he10 ? (b.split('').filter(e => e === '-').length > 0 ?
     sobu1(formatNum({ a: b.split('').filter(e => e !== '-').join('') }).a) :
-    sobu1(Number(b).toString(2))) : b
+    formatNum({ a: b }).a) : b
   const { a: af, b: bf } = formatBin({ a: a2, b: b2 })
   // b = sobu1(bf)
   const { d, k, karray, content } = cong({ a: af, b: bf, c: heSo.he2 })
