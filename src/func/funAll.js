@@ -129,10 +129,10 @@ const cong = ({ a = "", b = "", c = heSo.he10 }) => {
   let a10 = c !== heSo.he10 ? parseInt(a, 2) : a
   let b10 = c !== heSo.he10 ? parseInt(b, 2) : b
   let a2 = c === heSo.he10 ? (a.split('').filter(e => e === '-').length > 0 ?
-    sobu1(formatNum({ a: a.split('').filter(e => e !== '-').join('') }).a) :
+    formatNum({ a: a.split('').filter(e => e !== '-').join('') }).a :
     Number(a).toString(2)) : a
   let b2 = c === heSo.he10 ? (b.split('').filter(e => e === '-').length > 0 ?
-    sobu1(formatNum({ a: b.split('').filter(e => e !== '-').join('') }).a) :
+    formatNum({ a: b.split('').filter(e => e !== '-').join('') }).a :
     Number(b).toString(2)) : b
   let k = false
   let karray = []
@@ -178,7 +178,7 @@ const tru = ({ a = "", b = "", c = heSo.he10 }) => {
   let a10 = c !== heSo.he10 ? parseInt(a, 2) : a
   let b10 = c !== heSo.he10 ? parseInt(b, 2) : b
   let a2 = c === heSo.he10 ? (a.split('').filter(e => e === '-').length > 0 ?
-    sobu1(formatNum({ a: a.split('').filter(e => e !== '-').join('') }).a) :
+    formatNum({ a: a.split('').filter(e => e !== '-').join('') }).a :
     Number(a).toString(2)) : a
   let b2 = c === heSo.he10 ? (b.split('').filter(e => e === '-').length > 0 ?
     sobu1(formatNum({ a: b.split('').filter(e => e !== '-').join('') }).a) :
