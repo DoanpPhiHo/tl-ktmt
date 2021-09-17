@@ -22,9 +22,14 @@ const TongQuat = ({ value, m }) => {
           Q<sub>10</sub> : {value.b10}
         </div>
       )}
-      {value && value.b2 && (
+      {value && value.b2 && value.b2.split('').filter(e => e === '-').length === 0 && (
         <div style={{ fontSize: 20, fontWeight: "bold", padding: 3 }}>
           Q<sub>2</sub> : {value.b2}
+        </div>
+      )}
+      {value && value.b2 && value.b2.split('').filter(e => e === '-').length !== 0 && value.bf && (
+        <div style={{ fontSize: 20, fontWeight: "bold", padding: 3 }}>
+          Q<sub>2</sub> : {value.bf}
         </div>
       )}
       <center>

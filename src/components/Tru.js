@@ -51,8 +51,13 @@ const Tru = ({ value }) => {
               <td>B<sub>bù 1</sub></td>
               <td>&emsp;</td>
               {value &&
-                value.bbu1 &&
+                value.bbu1 && value.bbu1.split('').filter(e => e === '-').length === 0 &&
                 value.bbu1
+                  .split("")
+                  .map((item, i) => <td key={"cong_" + i}>{item}</td>)}
+              {value &&
+                value.bbu1 && value.bbu1.split('').filter(e => e === '-').length !== 0 && value.bf &&
+                value.bf
                   .split("")
                   .map((item, i) => <td key={"cong_" + i}>{item}</td>)}
             </tr>

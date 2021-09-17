@@ -129,10 +129,10 @@ const cong = ({ a = "", b = "", c = heSo.he10 }) => {
   let a10 = c !== heSo.he10 ? parseInt(a, 2) : a
   let b10 = c !== heSo.he10 ? parseInt(b, 2) : b
   let a2 = c === heSo.he10 ? (a.split('').filter(e => e === '-').length > 0 ?
-    sobu1(Number(a.split('').filter(e => e !== '-').join('')).toString(2)) :
+    sobu1(formatNum({ a: a.split('').filter(e => e !== '-').join('') }).a) :
     Number(a).toString(2)) : a
   let b2 = c === heSo.he10 ? (b.split('').filter(e => e === '-').length > 0 ?
-    sobu1(Number(b.split('').filter(e => e !== '-').join('')).toString(2)) :
+    sobu1(formatNum({ a: b.split('').filter(e => e !== '-').join('') }).a) :
     Number(b).toString(2)) : b
   let k = false
   let karray = []
@@ -164,19 +164,29 @@ const cong = ({ a = "", b = "", c = heSo.he10 }) => {
   return { a10, b10, a2: af, b2: bf, k: k ? "1" : "0", d, t: "+", karray, content }
 }
 
+const formatNum = ({ a = "" }) => {
+  let b = Number(a.split('').filter(e => e !== '-').join('')).toString(2)
+  const i = [2, 3, 4, 5, 6, 7].filter(
+    (c) => c ** 2 >= b.length
+  )[0]
+  return {
+    a: "1".repeat(i ** 2 - b.length) + sobu1(b),
+  }
+}
+
 const tru = ({ a = "", b = "", c = heSo.he10 }) => {
   let a10 = c !== heSo.he10 ? parseInt(a, 2) : a
   let b10 = c !== heSo.he10 ? parseInt(b, 2) : b
   let a2 = c === heSo.he10 ? (a.split('').filter(e => e === '-').length > 0 ?
-    sobu1(Number(a.split('').filter(e => e !== '-').join('')).toString(2)) :
+    sobu1(formatNum({ a: a.split('').filter(e => e !== '-').join('') }).a) :
     Number(a).toString(2)) : a
   let b2 = c === heSo.he10 ? (b.split('').filter(e => e === '-').length > 0 ?
-    Number(b.split('').filter(e => e !== '-').join('')).toString(2) :
+    sobu1(formatNum({ a: b.split('').filter(e => e !== '-').join('') }).a) :
     sobu1(Number(b).toString(2))) : b
   const { a: af, b: bf } = formatBin({ a: a2, b: b2 })
   // b = sobu1(bf)
   const { d, k, karray, content } = cong({ a: af, b: bf, c: heSo.he2 })
-  return { a10, b10, a2, b2, af, k, d, bbu1: b, karray, t: "-", content }
+  return { a10, b10, a2, b2, af, k, d, bbu1: b, bf, karray, t: "-", content }
 }
 
 export { cong, tru, sobu2, heSo }//nhan, chia,
