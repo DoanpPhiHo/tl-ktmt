@@ -156,17 +156,19 @@ const cong = ({ a = "", b = "", c = heSo.he10 }) => {
     .reverse()
     .join("")
   karray.reverse()
-  console.log(karray)
+  console.log('%c Bit nhớ nè', 'color: white; background-color: #2274A5;font-size:50pt;');
+  console.table(karray)
   let arrClone = [...karray]
   arrClone.reverse()
   let content = bf.split('').reverse().map((e, i) => `${af.split('').reverse()[i]} + ${e}${i > 0 && arrClone[i - 1] === '1' ? ' + 1(nhớ)' : ''} = ${d.split('').reverse()[i]}${arrClone[i] === '1' ? ', viết 0 nhớ 1' : ''}`)
-  console.log((k ? "1" : "0") + d, parseInt((k ? "1" : "0") + d, 2))
+  
+  console.log('%c Bit nhớ cuối cùng nè ', 'color: white; background-color: #2274A5;font-size:50pt;');
+  console.table((k ? "1" : "0") + d, parseInt((k ? "1" : "0") + d, 2))
   return { a10, b10, a2: af, b2: bf, k: k ? "1" : "0", d, t: "+", karray, content }
 }
 
 const formatNum = ({ a = "" }) => {
   let b = Number(a.split('').filter(e => e !== '-').join('')).toString(2)
-  console.log(`bbbbbbbbbbbb${b}`);
   const i = [2, 3, 4, 5, 6, 7].filter(
     (c) => c ** 2 >= b.length
   )[0]

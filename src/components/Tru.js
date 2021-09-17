@@ -1,7 +1,8 @@
 import React from "react";
 
 const Tru = ({ value }) => {
-  console.log(value);
+  console.log('%c Phép trừ nè', 'color: white; background-color: #2274A5;font-size:50pt;');
+  console.table(value);
   return (
     <div className="card">
       <div className="card-body">

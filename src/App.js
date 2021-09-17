@@ -8,7 +8,7 @@ function App() {
   const [b, setB] = useState("");
   const [c, setC] = useState(heSo.he10);
   const [d, setD] = useState();
-  if (d) console.log(d);
+  if (d) console.table(d);
   return (
     <div className="App">
       <input value={a} onChange={(e) => setA((c) => (c = e.target.value))} />
