@@ -128,8 +128,8 @@ const formatBin = ({ a = "0", b = "0" }) => {
 const cong = ({ a = "", b = "", c = heSo.he10 }) => {
   let a10 = c !== heSo.he10 ? parseInt(a, 2) : a
   let b10 = c !== heSo.he10 ? parseInt(b, 2) : b
-  let a2 = c === heSo.he10 ? Number(a).toString(2) : a
-  let b2 = c === heSo.he10 ? Number(b).toString(2) : b
+  let a2 = c === heSo.he10 ? (a.split('').filter(e => e === '-').length > 0 ? sobu1(Number(a).toString(2)) : Number(a).toString(2)) : a
+  let b2 = c === heSo.he10 ? (b.split('').filter(e => e === '-').length > 0 ? sobu1(Number(b).toString(2)) : Number(b).toString(2)) : b
   let k = false
   let karray = []
   const { a: af, b: bf } =
@@ -163,11 +163,11 @@ const cong = ({ a = "", b = "", c = heSo.he10 }) => {
 const tru = ({ a = "", b = "", c = heSo.he10 }) => {
   let a10 = c !== heSo.he10 ? parseInt(a, 2) : a
   let b10 = c !== heSo.he10 ? parseInt(b, 2) : b
-  let a2 = c === heSo.he10 ? Number(a).toString(2) : a
-  let b2 = c === heSo.he10 ? Number(b).toString(2) : b
+  let a2 = c === heSo.he10 ? (a.split('').filter(e => e === '-').length > 0 ? sobu1(Number(a).toString(2)) : Number(a).toString(2)) : a
+  let b2 = c === heSo.he10 ? (b.split('').filter(e => e === '-').length > 0 ? Number(b).toString(2) : sobu1(Number(b).toString(2))) : b
   const { a: af, b: bf } = formatBin({ a: a2, b: b2 })
-  b = sobu1(bf)
-  const { d, k, karray, content } = cong({ a: af, b: b, c: heSo.he2 })
+  // b = sobu1(bf)
+  const { d, k, karray, content } = cong({ a: af, b: bf, c: heSo.he2 })
   return { a10, b10, a2, b2, af, k, d, bbu1: b, karray, t: "-", content }
 }
 
